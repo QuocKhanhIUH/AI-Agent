@@ -1,0 +1,75 @@
+[project]
+name = "watercrawl"
+version = "0.12.3"
+description = "WaterCrawl is a smart and extensible web crawler that extracts structured knowledge from websites, generates LLM-ready Markdown files, and visualizes crawl strategies. Built with Django, Scrapy, and Playwright."
+authors = [
+    {name = "AmirMohsen Asaran",email = "amir.asaran92@gmail.com"}
+]
+readme = "../README.md"
+requires-python = ">=3.13,<4"
+dependencies = [
+    "gunicorn (==23.0.0)",
+    "django (==5.2.14)",
+    "django-environ (==0.11.2)",
+    "scrapy (==2.15.2)",
+    "djangorestframework (==3.17.1)",
+    "celery (==5.6.3)",
+    "redis (==5.3.1)",
+    "django-celery-beat (==2.9.0)",
+    "django-celery-results (==2.6.0)",
+    "drf-spectacular (==0.29.0)",
+    "drf-spectacular-sidecar (==2026.5.1)",
+    "psycopg2-binary (==2.9.12)",
+    "html2text (==2024.2.26)",
+    "scrapy-splash (==0.9.0)",
+    "django-minio-backend (==3.8.0)",
+    "djangorestframework-simplejwt (==5.5.1)",
+    "django-cors-headers (==4.9.0)",
+    "watercrawl-plugin (==0.1.0)",
+    "watercrawl-openai (==0.1.1)",
+    "httpx (==0.28.1)",
+    "stripe (==11.6.0)",
+    "django-filter (==25.2)",
+    "django-redis (==5.4.0)",
+    "sentry-sdk[aiohttp,celery,django] (==2.59.0)",
+    "urllib3 (>=2.7.0)",
+    "cryptography (>=46.0.7)",
+    "sqlparse (>=0.5.5)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.2.0"
+ruff = "^0.11.2"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.0"
+pytest-django = "^4.9.0"
+pytest-cov = "^6.0.0"
+pytest-mock = "^3.14.0"
+pytest-asyncio = "^0.24.0"
+factory-boy = "^3.3.1"
+fakeredis = "^2.26.0"
+responses = "^0.25.0"
+freezegun = "^1.5.0"
+
+[tool.ruff]
+exclude = ["migrations", "__pycache__", "venv"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "watercrawl.settings_test"
+python_files = ["test_*.py", "*_tests.py"]
+addopts = "-ra --strict-markers --tb=short --reuse-db"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = [
+    "ignore::DeprecationWarning:scrapy.*",
+    "ignore::DeprecationWarning:twisted.*",
+]
+markers = [
+    "slow: marks tests as slow",
+]
